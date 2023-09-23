@@ -1,4 +1,6 @@
 from app import app
-@app.route("/")
-def hello_world():
-    return "hello,good man"
+from model.user_model import user_model
+obj=user_model()
+@app.route("/login")
+def login():
+    return obj.login()
