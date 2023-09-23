@@ -1,6 +1,5 @@
 import mysql.connector
-import json
-from flask import make_response
+from flask import make_response, request
 class user_model():
     def __init__(self):
         try:
@@ -10,10 +9,17 @@ class user_model():
             print("connected_________!")
         except:
             print("__some error")
+
     def login(self):
-        self.cur.execute("SELECT* FROM chat")
+        email=request.form.get("email")
+        password=request.form.get("password")
+        query = "SELECT * FROM chat WHERE email= %s AND password= %s "
+        self.cur.execute(query,(email,password))
         result=self.cur.fetchall()
         if len(result)>0:
-            return make_response({"payload":result},200)
+            return make_response({"message":"login sucessfull"},201)
         else:
-            return make_response({"message":"No Data Found"},204)
+            return make_response({"message":"Invalid email or password"},201)
+        
+
+    
