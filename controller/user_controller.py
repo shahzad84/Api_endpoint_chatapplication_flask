@@ -13,3 +13,7 @@ def login():
 @app.route("/register",methods=["POST"])
 def register():
     return obj.register()
+
+@app.route('/api/online-users/', methods=['GET'])
+def get_online_users():
+    return obj.get_online_users()

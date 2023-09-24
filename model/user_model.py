@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import make_response, request,session
+from flask import jsonify, make_response, request,session
 import re
 class user_model():
     def __init__(self):
@@ -11,6 +11,15 @@ class user_model():
         except:
             print("__some error")
 
+    def set_user_online(self,id):
+        query = "UPDATE chat SET online = 1 WHERE id =%s"
+        self.cur.execute(query,(id, ))
+    
+
+    def set_user_offline(self,id):
+        query = "UPDATE chat SET online = 0 WHERE id =%s"
+        self.cur.execute(query,(id,))
+
     def login(self):
         email=request.form.get("email")
         password=request.form.get("password")
@@ -20,6 +29,7 @@ class user_model():
         if result:
             if len(result) > 0:
                 first_result = result[0]
+                self.set_user_online(first_result["id"])
                 session['loggedin'] = True
                 session["id"]=first_result["id"]
                 session["name"]=first_result["name"]
@@ -47,3 +57,18 @@ class user_model():
             self.cur.execute(query,(name, email, password, ))
             return "registered"
     
+
+
+   
+    def get_online_users(self):
+
+        if 'id' not in session:
+            return make_response({"message":"user not loged in"},201)
+        query = "SELECT * FROM chat WHERE online= 1"
+        self.cur.execute(query)
+        online_users = self.cur.fetchall()
+        if len(online_users)>0:
+           return jsonify(online_users)
+        else:
+            return make_response({"message":"all users are offline"},201)
+        
