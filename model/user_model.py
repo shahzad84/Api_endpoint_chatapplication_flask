@@ -1,5 +1,5 @@
 import mysql.connector
-from flask import make_response, request
+from flask import make_response, request,session
 import re
 class user_model():
     def __init__(self):
@@ -17,8 +17,13 @@ class user_model():
         query = "SELECT * FROM chat WHERE email= %s AND password= %s "
         self.cur.execute(query,(email,password))
         result=self.cur.fetchall()
-        if len(result)>0:
-            return make_response({"message":"login sucessfull"},200)
+        if result:
+            if len(result) > 0:
+                first_result = result[0]
+                session['loggedin'] = True
+                session["id"]=first_result["id"]
+                session["name"]=first_result["name"]
+                return make_response({"message":"login sucessfull"},200)
         else:
             return make_response({"message":"Invalid email or password"},201)
 
