@@ -21,7 +21,12 @@ def get_online_users():
 @app.route('/logout')
 def logout():
     return obj.logout()
+
 @app.route('/api/chat/start/',methods=["POST"])
 def start_chat():
     recipient_id = request.form.get("recipient_id")
     return obj.start_chat(recipient_id)
+
+@app.route('/api/suggested-friends/<int:id>', methods=['GET'])
+def get_suggested_friends(id):  
+    return obj.get_suggested_friends(id)

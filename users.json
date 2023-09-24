@@ -1,0 +1,89 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "User 1",
+            "age": 81,
+            "interests": {
+                "singing": 91,
+                "travelling": 88,
+                "dancing": 37
+            },
+              "recommended_friends": [
+                {
+                    "id": 145,
+                    "name": "User 145",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                },
+                {
+                    "id": 22,
+                    "name": "User 22",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                },
+                {
+                    "id": 11,
+                    "name": "User 11",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "User 2",
+            "age": 81,
+            "interests": {
+                "singing": 91,
+                "travelling": 88,
+                "dancing": 37
+            },
+              "recommended_friends": [
+                {
+                    "id": 11,
+                    "name": "User 145",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                },
+                {
+                    "id": 97,
+                    "name": "User 97",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                },
+                {
+                    "id": 12,
+                    "name": "User 12",
+                    "age": 55,
+                    "interests": {
+                        "travelling": 48,
+                        "dancing": 43,
+                        "cars": 46
+                    }
+                }
+            ]
+        }
+        
+    ]
+}

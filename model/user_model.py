@@ -1,6 +1,8 @@
 import mysql.connector
-from flask import jsonify, make_response, request,session
+from flask import jsonify, make_response, request,session,Flask
 import re
+import json
+
 class user_model():
     def __init__(self):
         try:
@@ -56,10 +58,7 @@ class user_model():
             query ='INSERT INTO chat VALUES (NULL, %s, %s, %s)'
             self.cur.execute(query,(name, email, password, ))
             return "registered"
-    
-
-
-   
+        
     def get_online_users(self):
 
         if 'id' not in session:
@@ -107,3 +106,16 @@ class user_model():
                 return make_response({"error": "Chat initiation failed"}, 500)
         else:
             return make_response({"message": "Recipient is offline or unavailable"}, 404)
+        
+    def get_suggested_friends(self,id):
+        try:
+            with open('users.json', 'r') as file:
+                friends_data = json.load(file)
+            user = next((u for u in friends_data.get("users", []) if u.get("id") == id), None)
+            if user:
+                recommended_friends = user.get("recommended_friends", [])
+                return jsonify({"recommended_friends": recommended_friends})
+            else:
+                return jsonify({"error": "User not found"}), 404
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
