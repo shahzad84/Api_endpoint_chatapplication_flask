@@ -82,3 +82,28 @@ class user_model():
             return make_response({"message":"logout successful"},201)
         else:
            return make_response({"message":"please login"},201)
+        
+    def is_user_online(self, id):
+        query = "SELECT online FROM chat WHERE id = %s"
+        self.cur.execute(query, (id,))
+        result = self.cur.fetchone()
+        if result and result["online"] == 1:
+            return True
+        else:
+            return False 
+        
+    def start_chat(self,recipient_id):
+        if 'id' not in session:
+            return make_response({"message": "User not logged in"}, 401)
+        sender_id = session['id']
+        recipient_online = self.is_user_online(recipient_id)
+        if recipient_online:
+            chat_session_query = "INSERT INTO chat_session (sender_id,recipient_id) VALUES (%s, %s)"
+            try:
+                self.cur.execute(chat_session_query, (sender_id,recipient_id,))
+                return make_response({"message": "Chat started with recipient"}, 200)
+            except Exception as e:
+                self.login.error(f"Error starting chat: {str(e)}")
+                return make_response({"error": "Chat initiation failed"}, 500)
+        else:
+            return make_response({"message": "Recipient is offline or unavailable"}, 404)
