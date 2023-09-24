@@ -6,3 +6,7 @@ obj=user_model()
 @app.route('/login', methods =['POST'])
 def login():
     return obj.login()
+
+@app.route("/register",methods=["POST"])
+def register():
+    return obj.register()
