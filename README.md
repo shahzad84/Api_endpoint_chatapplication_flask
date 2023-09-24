@@ -3,12 +3,19 @@ Usage
 Describe how to use the different routes and functionality provided by your Flask application. Provide examples of API endpoints, request formats, and expected responses.
 
 User Authentication:
+
     POST /login: Log in a user.
+    
     POST /register: Register a new user.
+    
     GET /logout: Log out a user.
+    
 User Interaction
+
     GET /api/online-users/: Get a list of online users.
+    
     POST /api/chat/start/: Start a chat with another user.
+    
     GET /api/suggested-friends/int:id: Get suggested friends for a user.
 
     
