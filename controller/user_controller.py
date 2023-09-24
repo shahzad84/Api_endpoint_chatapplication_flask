@@ -17,3 +17,7 @@ def register():
 @app.route('/api/online-users/', methods=['GET'])
 def get_online_users():
     return obj.get_online_users()
+
+@app.route('/logout')
+def logout():
+    return obj.logout()

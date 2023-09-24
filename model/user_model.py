@@ -72,3 +72,13 @@ class user_model():
         else:
             return make_response({"message":"all users are offline"},201)
         
+    def logout(self):
+        id = session.get('id')
+        if id:
+            self.set_user_offline(id)
+            session.pop('loggedin', None)
+            session.pop('id', None)
+            session.pop('username', None)
+            return make_response({"message":"logout successful"},201)
+        else:
+           return make_response({"message":"please login"},201)
